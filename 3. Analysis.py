@@ -113,24 +113,24 @@
 #           time_create_dict, time_del_list, time_del_dict))
 
 
-"""4. Given a list of numbers in random order, write an algorithm that works 
-in O(n*log(n)) to find the kth smallest number in the list."""
-lst = [12, 1, 9, 15, 8]
-k = 2
+# """4. Given a list of numbers in random order, write an algorithm that works
+# in O(n*log(n)) to find the kth smallest number in the list."""
+# lst = [12, 1, 9, 15, 8]
+# k = 2
 
 
 
-def quicksort(lst, k):
-    if k<=len(lst):
-        for i in range(len(lst)+1):
-            ind_piv = len(lst)//2
-
-
-            print(lst)
-
-
-
-quicksort(lst,3)
+# def quicksort(lst, k):
+#     if k<=len(lst):
+#         for i in range(len(lst)+1):
+#             ind_piv = len(lst)//2
+#
+#
+#             print(lst)
+#
+#
+#
+# quicksort(lst,3)
 
 
 # lst = sorted(lst)  # O(nlogn)
@@ -179,4 +179,39 @@ quicksort(lst,3)
 #     k = 4
 #     print("K'th smallest element is",
 #           kthSmallest(arr, 0, n - 1, k))
+#
+
+# lst = [12, 1, 9, 15, 8, 16]
+lst = [12, 1, 9, 15, 8, 6, 2, 4, 11]
+
+
+def quick_sort(lst, left, right):
+    j = left
+    piv = (right - left)//2
+    for i in range(right-1, piv+1, -1):
+        if lst[j]>=lst[piv]:
+            if lst[i]<lst[piv]:
+                lst[j], lst[i] = lst[i], lst[j]
+            j-=1
+        j+=1
+    print(lst)
+
+    return piv
+
+
+
+def found_k(lst, left, right, k):
+    piv = quick_sort(lst, left, right)
+    if k<=len(lst)-1:
+        while piv != k:
+            if piv < k:
+                quick_sort(lst, piv, right)
+            if piv > k:
+                quick_sort(lst, left, piv)
+        print("Smallest element with index 'k' in array", lst, "is", lst[k])
+
+
+# found_k(lst, 0, len(lst), 2)
+quick_sort(lst, 0, len(lst))
+
 
