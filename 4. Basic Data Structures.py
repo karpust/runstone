@@ -154,50 +154,89 @@
 #
 # print(postfixEval('7 8 + 3 2 + /'))
 
-"""4.9.3
-Q-3: Modify the infixToPostfix function so that
-it can convert the following expression:
-5 * 3 ** (4 - 2). Run the function on the expression
-and paste the answer here:"""
+# """4.9.3
+# Q-3: Modify the infixToPostfix function so that
+# it can convert the following expression:
+# 5 * 3 ** (4 - 2). Run the function on the expression
+# and paste the answer here:"""
+#
+# from pythonds.basic import Stack
+#
+# expression = '5 * 3 ^ ( 4 - 2 )'
+#
+# def infixToPostfix(expr):
+#     expr = expr.split()
+#     digits = '1234567890'
+#     new_expr = []
+#     OperandStack = Stack()
+#     prec = {}
+#     prec['*'] = 3
+#     prec['/'] = 3
+#     prec['+'] = 2
+#     prec['-'] = 2
+#     prec['^'] = 4
+#     prec['('] = 1
+#     for el in expr:
+#         if el in digits:
+#             new_expr.append(el)
+#         elif el == '(':
+#             OperandStack.push(el)
+#         elif el == ')':
+#             topToken = OperandStack.pop()
+#             while topToken != '(':
+#                 new_expr.append(topToken)
+#                 topToken = OperandStack.pop()
+#         else:
+#             while (not OperandStack.isEmpty())and (prec[el] <= prec[OperandStack.peek()]):
+#                 new_expr.append(OperandStack.pop())
+#             OperandStack.push(el)
+#     while not OperandStack.isEmpty():
+#         new_expr.append(OperandStack.pop())
+#     print(" ".join(new_expr))
+#     return new_expr
+#
+#
+# def compute(opn1, opn2, opr):
+#     if opr == '-':
+#         return opn1 - opn2
+#     if opr == '*':
+#         return opn1 * opn2
+#     if opr == '^':
+#         return opn1 ** opn2
+#
+#
+# def infixToPostfixResult(expr):
+#     postfixList = infixToPostfix(expr)
+#     stack = Stack()
+#     for token in postfixList:
+#         if token in '0123456789':
+#             stack.push(int(token))
+#         else:
+#             opr = token
+#             opn2 = stack.pop()
+#             opn1 = stack.pop()
+#             result = compute(opn1, opn2, opr)
+#             stack.push(result)
+#     return stack.pop()
+#
+#
+# print(infixToPostfixResult(expression))
 
-from pythonds.basic import Stack
 
-expression = '5 * 3 ** (4 - 2)'
-
-def infixToPostfix(expr):
-    expr = expr.split()
-    digits = '1234567890'
-    new_expr = []
-    OperandStack = Stack()
-    prec = {}
-    prec['*'] = 3
-    prec['/'] = 3
-    prec['+'] = 2
-    prec['-'] = 2
-    prec['**'] = 4
-    prec['('] = 1
-    for el in expr:
-        if el in digits:
-            new_expr.append(el)
-        elif el == '(':
-            OperandStack.push(el)
-        elif el == ')':
-            topToken = OperandStack.pop()
-            while topToken != '(':
-                topToken = OperandStack.pop()
-                new_expr.append(topToken)
-        else:
-            while not OperandStack.isEmpty()and el <= OperandStack.peek():
-                new_expr.append(OperandStack.pop())
-            OperandStack.push(el)
-    return new_expr
-
-
-# def compute(expr):
-#     if
-
-
-print(infixToPostfix(expression))
-
-
-
+# """4.13"""
+# from pythonds.basic import Queue
+#
+# def hotPotato(namelist, num):
+#     simqueue = Queue()
+#     for name in namelist:
+#         simqueue.enqueue(name)
+#
+#     while simqueue.size() > 1:
+#         for i in range(num):
+#             simqueue.enqueue(simqueue.dequeue())
+#
+#         simqueue.dequeue()
+#
+#     return simqueue.dequeue()
+#
+# print(hotPotato(["B","D","S","J","K","R"],7))
