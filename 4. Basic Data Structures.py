@@ -240,3 +240,178 @@
 #     return simqueue.dequeue()
 #
 # print(hotPotato(["B","D","S","J","K","R"],7))
+
+# """4.14.2"""
+# from pythonds.basic import Queue
+#
+# import random
+#
+# class Printer:
+#     def __init__(self, ppm):
+#         self.pagerate = ppm
+#         self.currentTask = None
+#         self.timeRemaining = 0
+#
+#     def tick(self):
+#         if self.currentTask != None:
+#             self.timeRemaining = self.timeRemaining - 1
+#             if self.timeRemaining <= 0:
+#                 self.currentTask = None
+#
+#     def busy(self):
+#         if self.currentTask != None:
+#             return True
+#         else:
+#             return False
+#
+#     def startNext(self, newtask):
+#         self.currentTask = newtask
+#         self.timeRemaining = newtask.getPages() * 60/self.pagerate
+#
+# class Task:
+#     def __init__(self, time):
+#         self.timestamp = time
+#         self.pages = random.randrange(1, 21)
+#
+#     def getStamp(self):
+#         return self.timestamp
+#
+#     def getPages(self):
+#         return self.pages
+#
+#     def waitTime(self, currenttime):
+#         return currenttime - self.timestamp
+#
+#
+# def simulation(numSeconds, pagesPerMinute, students):
+#     for i in range(students):
+#         labprinter = Printer(pagesPerMinute)
+#         printQueue = Queue()
+#         waitingtimes = []
+#         for currentSecond in range(numSeconds):
+#             if newPrintTask():
+#                 task = Task(currentSecond)
+#                 printQueue.enqueue(task)
+#
+#             if (not labprinter.busy()) and (not printQueue.isEmpty()):
+#                 nexttask = printQueue.dequeue()
+#                 waitingtimes.append(nexttask.waitTime(currentSecond))
+#                 labprinter.startNext(nexttask)
+#
+#             labprinter.tick()
+#
+#         averageWait = sum(waitingtimes)/len(waitingtimes)
+#         print("Average Wait %6.2f secs %3d tasks remaining."%(averageWait,printQueue.size()))
+#
+# def newPrintTask():
+#     num = random.randrange(1, 91)
+#     if num == 90:
+#         return True
+#     else:
+#         return False
+#
+#
+# simulation(3600, 5, 50)
+
+
+"""4.21.1"""
+class Node:
+    def __init__(self, initdata):
+        self.data = initdata
+        self.next = None
+
+    def getData(self):
+        return self.data
+
+    def getNext(self):
+        return self.next
+
+    def setData(self, newdata):
+        self.data = newdata
+
+    def setNext(self, newnext):
+        self.next = newnext
+
+
+class UnorderedList:
+
+    def __init__(self):
+        self.head = None
+        self.tail = None   # self.tail это узел на кот ссылается хвост
+
+    def isEmpty(self):
+        return self.head == None
+
+    def add(self, item):
+        temp = Node(item)
+        if self.head is None:
+            self.tail = temp
+        else:
+            temp.setNext(self.head)  # self.head это узел на кот ссылается голова
+        self.head = temp
+
+    def size(self):
+        current = self.head
+        count = 0
+        while current != None:
+            count = count + 1
+            current = current.getNext()
+        return count
+
+    def search(self, item):
+        current = self.head
+        found = False
+        while current != None and not found:
+            if current.getData() == item:
+                found = True
+            else:
+                current = current.getNext()
+        return found
+
+    def remove(self, item):
+        current = self.head
+        previous = None
+        found = False
+        while not found:
+            if current.getData() == item:
+                found = True
+            else:
+                previous = current
+                current = current.getNext()
+        if previous == None:
+            self.head = current.getNext()
+        else:
+            previous.setNext(current.getNext())
+
+    # def append(self, item):
+    #     current = self.head
+    #     previous = current
+    #     temp = Node(item)
+    #     if self.head != None:
+    #         while current is not None:
+    #             previous = current
+    #             current = current.getNext()
+    #         previous.setNext(temp)
+    #     else:
+    #         self.head = temp
+
+    def append(self, item):
+        temp = Node(item)
+        tail = self.tail
+        if self.head is not None:
+            tail.setNext(temp)
+        else:
+            self.head = temp
+        self.tail = temp
+
+
+mylist = UnorderedList()
+
+# mylist.add(17)
+# mylist.add(16)
+
+mylist.append(65)
+mylist.append(66)
+mylist.append(67)
+
+print(mylist.size())
