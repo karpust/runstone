@@ -586,10 +586,12 @@
 # evalpostfix("2 3 * 4 +")
 # evalpostfix("1 2 + 3 + 4 + 5 +")
 # evalpostfix("1 2 3 4 5 * + * +")
-"--------------------------------------------------------------------------------------------------------"
-"""4. PROGRAMMING EXSERCISES"""
 
-# """2. Modify the postfix evaluation algorithm so that it can handle errors."""
+
+"""------------------------------- PROGRAMMING EXERCISES -----------------------------------------"""
+
+
+"""2. Modify the postfix evaluation algorithm so that it can handle errors."""
 # from pythonds.basic import Stack
 #
 #
@@ -641,48 +643,253 @@
 # evalpostfix("7 + 5")
 
 """1. Modify the infix-to-postfix algorithm so that it can handle errors."""
-
-from pythonds.basic import Stack
-import sys
-
-
-def infixToPostfix(infixexpr):
-    prec = {}
-    prec["*"] = 3
-    prec["/"] = 3
-    prec["+"] = 2
-    prec["-"] = 2
-    prec["("] = 1
-    opStack = Stack()
-    postfixList = []
-    tokenList = infixexpr.split()
-
-    for token in tokenList:
-        if token in "ABCDEFGHIJKLMNOPQRSTUVWXYZ" or token in "0123456789":
-            postfixList.append(token)
-        elif token == '(':
-            opStack.push(token)
-        elif token == ')':
-            topToken = opStack.pop()
-            while topToken != '(':
-                postfixList.append(topToken)
-                topToken = opStack.pop()
-        else:
-            try:
-                while (not opStack.isEmpty()) and \
-                   (prec[opStack.peek()] >= prec[token]):
-                      postfixList.append(opStack.pop())
-                opStack.push(token)
-            except Exception:
-                print("Wrong input:")
-                print(sys.exc_info()[1])
-                sys.exit()
-
-
-    while not opStack.isEmpty():
-        postfixList.append(opStack.pop())
-    return " ".join(postfixList)
-
-print(infixToPostfix('A B C) '))
-# print(infixToPostfix("A * B + C * D"))
+#
+# from pythonds.basic import Stack
+# import sys
+#
+#
+# def infixToPostfix(infixexpr):
+#     prec = {}
+#     prec["*"] = 3
+#     prec["/"] = 3
+#     prec["+"] = 2
+#     prec["-"] = 2
+#     prec["("] = 1
+#     opStack = Stack()
+#     postfixList = []
+#     tokenList = infixexpr.split()
+#
+#     for token in tokenList:
+#         if token in "ABCDEFGHIJKLMNOPQRSTUVWXYZ" or token in "0123456789":
+#             postfixList.append(token)
+#         elif token == '(':
+#             opStack.push(token)
+#         elif token == ')':
+#             try:
+#                 topToken = opStack.pop()
+#             except IndexError:
+#                 print("Error: The entered expression is missing left parentheses")
+#                 print(sys.exc_info())
+#                 print(sys.exit())
+#
+#             while topToken != '(':
+#                 postfixList.append(topToken)
+#                 try:
+#                     topToken = opStack.pop()
+#                 except IndexError:
+#                     print("Error: The entered expression is missing left parentheses")
+#                     print(sys.exc_info()[1])
+#                     print(sys.exit())
+#         else:
+#             try:
+#                 while (not opStack.isEmpty()) and \
+#                    (prec[opStack.peek()] >= prec[token]):
+#                       postfixList.append(opStack.pop())
+#                 opStack.push(token)
+#             except Exception:
+#                 print("Error, Wrong input:")
+#                 print(sys.exc_info()[1])
+#                 sys.exit()
+#     del prec['(']
+#     try:
+#         while not opStack.isEmpty()and prec[opStack.peek()]:
+#             postfixList.append(opStack.pop())
+#         return " ".join(postfixList)
+#     except Exception:
+#         print("Error, Wrong input or not balanced parentheses:")
+#         print(sys.exc_info()[:2])
+#         sys.exit()
+#
+#
+#
+# print(infixToPostfix('A * B + C * D'))
 # print(infixToPostfix("( A + B ) * C - ( D - E ) * ( F + G )"))
+
+"""3. Implement a direct infix evaluator that combines
+the functionality of infix-to-postfix conversion and
+the postfix evaluation algorithm. Your evaluator should
+process infix tokens from left to right and use two stacks,
+one for operators and one for operands, to perform the evaluation."""
+"""4. Turn your direct infix evaluator from the 
+previous problem into a calculator."""
+
+# from pythonds.basic import Stack
+# import sys
+#
+#
+# def evalpostfix(expression):
+#     tokenlist = expression.split()
+#     stack = Stack()
+#     result = 0
+#     if len(tokenlist) > 0:
+#         for token in tokenlist:
+#             if token in "0123456789":
+#                 stack.push(int(token))
+#             elif token in " + *":
+#                 if stack.size() >= 2:
+#                     second = stack.pop()
+#                     first = stack.pop()
+#                     result = eval(first, second, token)
+#                     stack.push(result)
+#                 else:
+#                     result = error_input()
+#                     break
+#             elif token in "/ - **":
+#                 result = error_operation()
+#                 break
+#             else:
+#                 result = error_input()
+#     else:
+#         result = error_input()
+#     print(result)
+#
+#
+# def eval(first, second, token):
+#     if token is "+":
+#         return first + second
+#     elif token is "*":
+#         return first * second
+#
+#
+# def error_input():
+#     return 'Error:\nWrong input; please ' \
+#            'check the entered expression'
+#
+#
+# def error_operation():
+#     return 'Error:\nSorry, selected operation ' \
+#            'is not yet supported: ' \
+#            'you can use only "*" or "+" operation.'
+
+
+# def infixToPostfix(infixexpr):
+#     prec = {}
+#     prec["*"] = 3
+#     prec["/"] = 3
+#     prec["+"] = 2
+#     prec["-"] = 2
+#     prec["("] = 1
+#     opStack = Stack()
+#     postfixList = []
+#     tokenList = infixexpr.split()
+#
+#     for token in tokenList:
+#         if token in "0123456789":
+#             postfixList.append(token)
+#         elif token == '(':
+#             opStack.push(token)
+#         elif token == ')':
+#             try:
+#                 topToken = opStack.pop()
+#             except IndexError:
+#                 print("Error: The entered expression is missing left parentheses")
+#                 print(sys.exc_info())
+#                 break
+#
+#             while topToken != '(':
+#                 postfixList.append(topToken)
+#                 try:
+#                     topToken = opStack.pop()
+#                 except IndexError:
+#                     print("Error: The entered expression is missing left parentheses")
+#                     print(sys.exc_info()[1])
+#                     break
+#         else:
+#             try:
+#                 while (not opStack.isEmpty()) and (prec[opStack.peek()] >= prec[token]):
+#                     postfixList.append(opStack.pop())
+#                 opStack.push(token)
+#             except Exception:
+#                 print("Error, Wrong input:")
+#                 print(sys.exc_info()[1])
+#                 break
+#     del prec['(']
+#     try:
+#         while not opStack.isEmpty()and prec[opStack.peek()]:
+#             postfixList.append(opStack.pop())
+#         return " ".join(postfixList)
+#     except Exception:
+#         print("Error, Wrong input or not balanced parentheses:")
+#         print(sys.exc_info()[:2])
+#         # break
+#
+#
+# def eval_inf_postf():
+#     req = 0
+#     while req != 'exit':
+#         try:
+#             req = input("Enter expression for compute: ")
+#             evalpostfix(infixToPostfix(req))
+#         except Exception:
+#             req = input("Enter expression for compute: ")
+#
+#     return
+#
+#
+# eval_inf_postf()
+
+"""5. Implement the Queue ADT, using a list such 
+that the rear of the queue is at the end of the list."""
+
+# import time
+#
+# class Queue:
+#     def __init__(self):
+#         self.items = []
+#
+#     def isEmpty(self):
+#         return self.items == []
+#
+#     def enqueue(self, item):
+#         self.items.insert(0, item)
+#
+#     def dequeue(self):
+#         return self.items.pop()
+#
+#     def size(self):
+#         return len(self.items)
+#
+#
+# class QueueR(Queue):
+#     def enqueue(self, item):
+#         self.items.append(item)
+#
+#     def dequeue(self):
+#         return self.items.pop(len(self.items)-1)
+#
+#
+# q = Queue()
+# QR = QueueR()
+#
+#
+# def timeit(func):
+#     def wrapper(num, Q):
+#         start = time.time()
+#         result = func(num, Q)
+#         ttt = time.time()-start
+#         print("time: %6.3f" % ttt, Q, func)
+#         return result
+#     return wrapper
+#
+#
+# @timeit
+# def addToQueue(num, Q):
+#     for i in range(num):
+#         Q.enqueue(i)
+#     return
+#
+#
+# @timeit
+# def rmvFromQueue(num, Q):
+#     for i in range(num):
+#         Q.dequeue()
+#     return
+#
+# n = 100000
+# addToQueue(n, q)
+# addToQueue(n, QR)
+# rmvFromQueue(n, q)
+# rmvFromQueue(n, QR)
+
+
+

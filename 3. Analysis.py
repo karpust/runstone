@@ -182,36 +182,36 @@
 #
 
 # lst = [12, 1, 9, 15, 8, 16]
-lst = [12, 1, 9, 15, 8, 6, 2, 4, 11]
-
-
-def quick_sort(lst, left, right):
-    j = left
-    piv = (right - left)//2
-    for i in range(right-1, piv+1, -1):
-        if lst[j]>=lst[piv]:
-            if lst[i]<lst[piv]:
-                lst[j], lst[i] = lst[i], lst[j]
-            j-=1
-        j+=1
-    print(lst)
-
-    return piv
-
-
-
-def found_k(lst, left, right, k):
-    piv = quick_sort(lst, left, right)
-    if k<=len(lst)-1:
-        while piv != k:
-            if piv < k:
-                quick_sort(lst, piv, right)
-            if piv > k:
-                quick_sort(lst, left, piv)
-        print("Smallest element with index 'k' in array", lst, "is", lst[k])
-
-
-# found_k(lst, 0, len(lst), 2)
-quick_sort(lst, 0, len(lst))
+# lst = [12, 1, 9, 15, 8, 6, 2, 4, 11]
+#
+#
+# def quick_sort(lst, left, right):
+#     j = left
+#     piv = (right - left)//2
+#     for i in range(right-1, piv+1, -1):
+#         if lst[j]>=lst[piv]:
+#             if lst[i]<lst[piv]:
+#                 lst[j], lst[i] = lst[i], lst[j]
+#             j-=1
+#         j+=1
+#     print(lst)
+#
+#     return piv
+#
+#
+#
+# def found_k(lst, left, right, k):
+#     piv = quick_sort(lst, left, right)
+#     if k<=len(lst)-1:
+#         while piv != k:
+#             if piv < k:
+#                 quick_sort(lst, piv, right)
+#             if piv > k:
+#                 quick_sort(lst, left, piv)
+#         print("Smallest element with index 'k' in array", lst, "is", lst[k])
+#
+#
+# # found_k(lst, 0, len(lst), 2)
+# quick_sort(lst, 0, len(lst))
 
 
