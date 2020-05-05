@@ -891,5 +891,9 @@ that the rear of the queue is at the end of the list."""
 # rmvFromQueue(n, q)
 # rmvFromQueue(n, QR)
 
-
+"""7. It is possible to implement a queue such that 
+both enqueue and dequeue have O(1) performance on average. 
+In this case it means that most of the time enqueue and 
+dequeue will be O(1) except in one particular circumstance 
+where dequeue will be O(n)."""
 
